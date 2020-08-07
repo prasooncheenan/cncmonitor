@@ -39,10 +39,7 @@ public:
 		return _limitMap[key];
 	}
 
-	bool SetLimits(int key, std::pair<double, double> limits)
-	{
-		_limitMap[key] = limits;
-	}
+
 };
 
 std::string CheckLimits(int, double);
