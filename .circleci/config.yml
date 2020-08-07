@@ -43,5 +43,4 @@ jobs:
       - run:
           name: Unit test
           command: './cncmonitor'
-       - store_test_results:
-          path: test-results   
+
