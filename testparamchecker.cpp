@@ -14,7 +14,7 @@ TEST(CNCParameterTest,TemperatureNOTOK)
 
 TEST(CNCParameterTest,VarianceOK)
 {
-   ASSERT_NE("",CheckLimits(1,0.02));
+   ASSERT_EQ("",CheckLimits(1,0.02));
 }
 
 TEST(CNCParameterTest,VarianceNOTOK)
@@ -24,7 +24,7 @@ TEST(CNCParameterTest,VarianceNOTOK)
 
 TEST(CNCParameterTest,TotalTimeOK)
 {
-   ASSERT_NE("",CheckLimits(2,350));
+   ASSERT_EQ("",CheckLimits(2,350));
 }
 
 TEST(CNCParameterTest,TotalTimeNOTOK)
