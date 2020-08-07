@@ -4,53 +4,65 @@
 #include <limits>
 #include <functional>
 
-const std::string BPM = "bpm";
-const std::string SPO = "spo2";
-const std::string RESP = "respRate";
+const int TEMPERATURE = 0;
+const int VARIATION = 1;
+const int TOTALTIME = 2;
 
-class HealthResult
+const std::string InformationRunning[] = {
+	"High Temperature",
+	"Parts variation more than 0.05",
+	"Machine running for more than 6 hours"
+};
+
+const std::string MachineStatus[] = {
+	"No data",
+	"Controller board in the machine is not ok",
+	"Configuration data in the machine is corrupted"
+};
+
+
+class CurrentParameters
 {
-	std::map<std::string,bool> vals;
+	std::map<int,double> vals;
 
 public:
-	void AddResult(std::string keyHealth, bool status)
+	void AddValue(int keyParam, double value)
 	{
-		vals[keyHealth] = status;
+		vals[keyParam] += value;
 	}
-	explicit operator bool()
+	void SetValue( int keyParam, double value)
 	{
-		
-		for (auto mapValue:vals)
-		{
-			if (!mapValue.second)
-				return false;
-		}
-		
-		return true;
-	};
+		vals[keyParam] = value;
+	}
+	double GetResult(int keyParam)
+	{
+		return  vals[keyParam];
+	}
+	
 
 };
 
 class Limits
 {
-	std::map<std::string, std::pair<float, float>> _limitMap;
+	std::map<int, std::pair<double, double>> _limitMap;
 
 public:
 	Limits()
 	{
-		_limitMap[BPM] = std::make_pair(70, 150);
-		_limitMap[SPO] = std::make_pair(80, std::numeric_limits<float>::max());
-		_limitMap[RESP] = std::make_pair(30, 60);
+		_limitMap[TEMPERATURE] = std::make_pair(std::numeric_limits<double>::min(), 35);
+		_limitMap[VARIATION] = std::make_pair(std::numeric_limits<double>::min(), 0.05);
+		_limitMap[TOTALTIME] = std::make_pair(std::numeric_limits<double>::min(), 360);
 	}
-	std::pair<float, float> GetLimits(std::string key)
+	std::pair<double, double> GetLimits(int key)
 	{
 		return _limitMap[key];
 	}
 
-	void SetLimits(std::string key, std::pair<float, float> limits)
+	bool SetLimits(int key, std::pair<double, double> limits)
 	{
 		_limitMap[key] = limits;
-		
 	}
 };
+
+std::string CheckLimits(int, double);
 bool vitalsAreOk(float bpm, float spo2, float respRate);
