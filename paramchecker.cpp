@@ -13,21 +13,16 @@ bool isWithinLimits(double input, std::pair<double, double> limits)
         return false;
     return true;
 }
-bool vitalsAreOk(float bpm, float spo2, float respRate) {
-    
 
-    return true;
-}
 
 std::string CheckLimits(int type, double value)
 {
     std::string Update = "";
-    CurrentParameters hrResult;
     Limits allLimits;
     if (type == TOTALTIME)
-        hrResult.AddValue(TOTALTIME, value);
+        currentParameters[type] = currentParameters[type] + value;
     else
-    hrResult.SetValue(type, value);
+        currentParameters[type] = value;
     if (!isWithinLimits(value, allLimits.GetLimits(type)))
     {
         return InformationRunning[type];
