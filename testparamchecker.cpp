@@ -7,7 +7,7 @@
  
 TEST(CNCParameterTest,Temeprature)
 {
-   ASSERT_EQ("",CheckLimits(0,20))
+   ASSERT_EQ("",CheckLimits(0,20));
 }
  
 int main(int argc, char **argv) {
