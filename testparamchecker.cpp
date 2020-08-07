@@ -1,13 +1,35 @@
 #include "paramchecker.h"
 #include <gtest/gtest.h>
  
-/*TEST(VitalsTest, BPM) { 
-    ASSERT_EQ(true, vitalsAreOk(100, 100, 50));
-}*/
- 
-TEST(CNCParameterTest,Temeprature)
+
+TEST(CNCParameterTest,TemperatureOK)
 {
    ASSERT_EQ("",CheckLimits(0,20));
+}
+
+TEST(CNCParameterTest,TemperatureNOTOK)
+{
+   ASSERT_NE("",CheckLimits(0,40));
+}
+
+TEST(CNCParameterTest,VarianceOK)
+{
+   ASSERT_NE("",CheckLimits(1,0.02));
+}
+
+TEST(CNCParameterTest,VarianceNOTOK)
+{
+   ASSERT_NE("",CheckLimits(1,0.06));
+}
+
+TEST(CNCParameterTest,TotalTimeOK)
+{
+   ASSERT_NE("",CheckLimits(2,350));
+}
+
+TEST(CNCParameterTest,TotalTimeNOTOK)
+{
+   ASSERT_NE("",CheckLimits(2,370));
 }
  
 int main(int argc, char **argv) {
