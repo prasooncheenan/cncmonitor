@@ -8,6 +8,8 @@ const int TEMPERATURE = 0;
 const int VARIATION = 1;
 const int TOTALTIME = 2;
 
+static  double currentParameters[3]{ 0.0, 0.0, 0.0 };
+
 const std::string InformationRunning[] = {
 	"High Temperature",
 	"Parts variation more than 0.05",
@@ -20,27 +22,6 @@ const std::string MachineStatus[] = {
 	"Configuration data in the machine is corrupted"
 };
 
-
-class CurrentParameters
-{
-	std::map<int,double> vals;
-
-public:
-	void AddValue(int keyParam, double value)
-	{
-		vals[keyParam] += value;
-	}
-	void SetValue( int keyParam, double value)
-	{
-		vals[keyParam] = value;
-	}
-	double GetResult(int keyParam)
-	{
-		return  vals[keyParam];
-	}
-	
-
-};
 
 class Limits
 {
@@ -65,4 +46,3 @@ public:
 };
 
 std::string CheckLimits(int, double);
-bool vitalsAreOk(float bpm, float spo2, float respRate);
